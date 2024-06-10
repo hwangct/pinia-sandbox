@@ -1,11 +1,9 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
-import AgGrid from './components/AgGrid.vue'
 </script>
 
 <template>
-    
     <div class="wrapper">
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -13,9 +11,6 @@ import AgGrid from './components/AgGrid.vue'
       </nav>
 
       <RouterView />
-    </div>
-    <div>
-      <AgGrid></AgGrid>
     </div>
 </template>
 
