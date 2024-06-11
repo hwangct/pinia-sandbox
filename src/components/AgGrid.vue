@@ -2,6 +2,8 @@
 import '@ag-grid-community/styles/ag-grid.css'
 import '@ag-grid-community/styles/ag-theme-quartz.css'
 import { AgGridVue } from 'ag-grid-vue3'
+import { ref } from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -9,7 +11,21 @@ export default {
     AgGridVue
   },
   setup() {
+    const items = ref([]);
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://api.coindesk.com/v1/bpi/currentprice.json');
+        items.value = response.data;
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        console.log(JSON.stringify(items.value, undefined, 4));
+      }
+    };
+
     return {
+      fetchData,
       columnDefs: [
         { headerName: 'Make', field: 'make' },
         { headerName: 'Model', field: 'model' },
@@ -28,6 +44,7 @@ export default {
 <template>
     <br>
     <hr>
+    <button @click="fetchData">Fetch Data</button>
     <br>
     <ag-grid-vue
       style="width: 500px; height: 200px"
